@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 const Skeleton = ({
   className,
@@ -9,7 +9,7 @@ const Skeleton = ({
       className={cn("animate-pulse rounded-md bg-neutral-200", className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 export default Skeleton;

@@ -27,7 +27,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         transition
       `,
           disabled && "opacity-75 cursor-not-allowed",
-          className
+          className,
         )}
         disabled={disabled}
         ref={ref}
@@ -36,7 +36,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";
