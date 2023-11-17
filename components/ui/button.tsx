@@ -12,21 +12,24 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         className={cn(
           `
+        focus-visible:ring-ring 
         w-auto 
-        rounded-full 
-        bg-black
+        rounded-full
         border
         border-transparent
+        bg-black 
         px-5 
         py-3 
-        disabled:cursor-not-allowed 
-        disabled:opacity-50
-        text-white
         font-semibold
-        hover:opacity-75
+        text-white
+        ring-offset-white
         transition
+        hover:opacity-75
+        focus-visible:outline-none
+        focus-visible:ring-2
+        focus-visible:ring-black focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50
       `,
-          disabled && "opacity-75 cursor-not-allowed",
+          disabled && "cursor-not-allowed opacity-75",
           className,
         )}
         disabled={disabled}
