@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 
 import Button from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
+import useAuthModal from "@/hooks/use-auth-modal";
 
 const NavbarActions = () => {
+  const authModal = useAuthModal();
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -31,6 +33,9 @@ const NavbarActions = () => {
         <span className="ml-2 text-sm font-medium text-white">
           {cart.items.length}
         </span>
+      </Button>
+      <Button className="py-2 text-sm" onClick={() => authModal.onOpen()}>
+        Sign In
       </Button>
     </div>
   );
