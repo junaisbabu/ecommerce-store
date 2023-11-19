@@ -4,6 +4,8 @@ import ModalProvider from "@/providers/modal-provider";
 import ToastProvider from "@/providers/toast-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/providers/session-provider";
 
 import "./globals.css";
 
@@ -14,19 +16,23 @@ export const metadata = {
   description: "Store - The place for all your purchases.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
+
   return (
     <html lang="en">
       <body className={font.className}>
-        <ToastProvider />
-        <ModalProvider />
-        <Navbar />
-        {children}
-        <Footer />
+        <SessionProvider session={session}>
+          <ToastProvider />
+          <ModalProvider />
+          <Navbar />
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
