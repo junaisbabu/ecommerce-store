@@ -11,10 +11,10 @@ const SignupSchema = z.object({
   mobile_no: z.string().min(10, { message: "Invalid mobile number" }),
   password: z
     .string()
-    .min(6, { message: "Password should be more than 5 characters" }),
+    .min(7, { message: "Password should be more than 6 characters" }),
 });
 
-const Signup = SignupSchema.omit({ id: true, date: true });
+const Signup = SignupSchema.omit({ id: true, created_at: true });
 
 export type State = {
   errors?: {
@@ -27,8 +27,8 @@ export type State = {
   status?: "success" | "error";
 };
 
-export async function signup(
-  prevState: State,
+export async function createUser(
+  _prevState: State,
   formData: FormData,
 ): Promise<State> {
   // Validate form using Zod
@@ -49,19 +49,32 @@ export async function signup(
 
   const { name, email, mobile_no, password } = validatedFields.data;
 
+  // TODO: validate
+  // await prisma.user.findUnique({
+  //   where: {
+  //     email: email
+  //   }
+  // });
+
   let dateTime = new Date().toISOString();
   dateTime = dateTime.split("T").join(" ");
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
   try {
-    await prisma.user.create({
+    const newUser = await prisma.user.create({
       data: {
         name,
         email,
         mobile_no,
         password: hashedPassword,
         created_at: dateTime,
+      },
+    });
+
+    await prisma.users.create({
+      data: {
+        userId: newUser.id,
       },
     });
 
