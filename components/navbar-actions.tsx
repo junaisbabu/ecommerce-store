@@ -3,12 +3,14 @@
 import { ShoppingBag } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 import Button from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
 import useAuthModal from "@/hooks/use-auth-modal";
 
 const NavbarActions = () => {
+  const session = useSession();
   const authModal = useAuthModal();
   const [isMounted, setIsMounted] = useState(false);
 
@@ -34,9 +36,18 @@ const NavbarActions = () => {
           {cart.items.length}
         </span>
       </Button>
-      <Button className="py-2 text-sm" onClick={() => authModal.onOpen()}>
-        Sign In
-      </Button>
+      {session.status === "authenticated" ? (
+        <Button
+          className="py-2 text-sm"
+          onClick={() => signOut({ redirect: false })}
+        >
+          Sign Out
+        </Button>
+      ) : (
+        <Button className="py-2 text-sm" onClick={() => authModal.onOpen()}>
+          Sign In
+        </Button>
+      )}
     </div>
   );
 };
