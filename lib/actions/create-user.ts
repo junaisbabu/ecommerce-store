@@ -1,8 +1,8 @@
 "use server";
 
 import prisma from "@/prisma";
-import z from "zod";
-import bcrypt from "bcrypt";
+import { z } from "zod";
+import bcrypt from "bcryptjs";
 
 const SignupSchema = z.object({
   id: z.string(),

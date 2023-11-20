@@ -1,7 +1,8 @@
-"use client";
+"use server";
 
-import { signIn } from "next-auth/react";
-import z from "zod";
+import { z } from "zod";
+
+import { signIn } from "@/auth";
 
 const SigninSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -42,8 +43,7 @@ export const getUser = async (
       password,
     });
 
-    if (res?.url)
-      return { message: "Successfully signed in", status: "success" };
+    if (res) return { message: "Successfully signed in", status: "success" };
     return { message: "Invalid email or password", status: "error" };
   } catch (err) {
     console.log(err);
