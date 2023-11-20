@@ -6,6 +6,9 @@ const nextConfig = {
       { protocol: "https", hostname: "res.cloudinary.com" },
     ],
   },
+  env: {
+    AUTH_URL: process.env.NEXTAUTH_URL,
+  },
 };
 
 module.exports = nextConfig;
