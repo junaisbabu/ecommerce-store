@@ -4,7 +4,7 @@ import ModalProvider from "@/providers/modal-provider";
 import ToastProvider from "@/providers/toast-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { getServerSession } from "next-auth";
+import { auth } from "@/auth";
 import SessionProvider from "@/providers/session-provider";
 
 import "./globals.css";
@@ -21,7 +21,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession();
+  const session = await auth();
+
+  console.log("session", session);
 
   return (
     <html lang="en">
